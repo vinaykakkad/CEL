@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Challenges</title>
+    <link rel="stylesheet" href="{% static 'questions/css/challenge.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="challenge-body">
+        <div class="container-fluid">
+            <div class="row m-0 p-0">
+                {% for challenge in page_data %}
+                    <div class="col-xl-4 col-md-6 col-sm-12 my-5 mx-0 p-0 d-flex justify-content-center">
+                        <div class="challenge-box shadow mx-0 py-5">
+                            <table class="p-2">
+                                <tr class="d-flex justify-content-center align-items-center">
+                                    <td class="mx-2 challenge-box-heading">
+                                        <h3>Challenge <br> 
+                                            <span class="display-3">{{challenge}}</span> 
+                                        </h3>
+                                    </td>
+                                    <td class="mx-2">
+                                        {% if request.user.is_superuser %}
+                                            <a href="{% url 'question' %}?challenge_number={{challenge}}&question_number=1">
+                                                <button class="btn btn-secondary challenge-buttons">Check</button>
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'question' %}?challenge_number={{challenge}}&question_number=1">
+                                                <button class="btn btn-secondary challenge-buttons">Attempt</button>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% include 'questions/pagination.html' %}
+    </section>
+{% endblock %}

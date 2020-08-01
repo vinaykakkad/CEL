@@ -1,0 +1,117 @@
+<script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+        // Required DOM contents
+        const questions = Object.values({{questions|safe}});
+        const answered_questions = Object.values({{answered_questions|safe}});
+        const image_box = document.querySelector('.question-image');
+        const form = document.querySelector('#question-form');
+
+        // function to get the value of csrf_token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // function to add input fields in the form
+        function addInput(type, name, value, classes) {
+            var input = document.createElement('input');
+            input.setAttribute('type', type);
+            input.setAttribute('name', name);
+            if(value != null) {
+                input.setAttribute('value', value);
+            }
+            if(classes != null){
+                input.setAttribute('class', classes);
+            }
+            form.append(input);
+        }   
+
+        // function to load a question and add input fields
+        function load_question(question_number) {
+            var current_question = questions[question_number - 1];
+
+            // Adding Question Text
+            document.querySelector('.question-text').innerHTML = question_number + " . " + current_question.question_text;
+            
+            // Adding Question Image
+            if(current_question.question_image != "") {
+                var image = document.createElement("img");
+                image.src = "media\/" + current_question.question_image;
+                image.setAttribute('class', 'rounded');
+                image_box.innerHTML = "";
+                image_box.append(image);
+            }
+            else {
+                image_box.innerHTML = "";
+            }
+
+            // Clearing the answer form
+            form.innerHTML = "";
+
+            // Adding csrf_token
+            const csrftoken = getCookie('csrftoken');
+            addInput('hidden', 'csrfmiddlewaretoken', csrftoken, null);
+
+            // Adding username
+            addInput('hidden', 'username', '{{request.user.username}}', null )
+
+            // Adding challenge_number
+            addInput('hidden', 'challenge_number', '{{challenge_number}}', null )
+
+            // Adding question_number
+            addInput('hidden', 'answer_no', question_number, null);
+
+            // Adding answer submission field
+            if(current_question.answer_type == 1) {
+                var textarea_input = document.createElement('textarea');
+                textarea_input.setAttribute('class', 'form-control mx-auto textarea-fields')
+                textarea_input.setAttribute('name', 'answer');
+                form.append(textarea_input);
+
+                addInput('hidden', 'type', 'textarea', null);
+            }
+            else {
+                addInput('file', 'answer', null, 'form-control mx-auto my-3');
+                addInput('hidden', 'type', 'file', null);
+            }
+
+            // Adding Submit
+            addInput('submit', null, 'Submit', 'btn submit-button center-mx');
+
+            //Push state to history
+            history.pushState({question_number: question_number}, "Question 1", "?challenge_number={{challenge_number}}&question_number=" + question_number);
+        };
+
+        // On popstate load the previous page
+        window.onpopstate = (e) => {
+            load_question(e.state['question_number']);
+        }
+
+        // For navigatoin panel
+        document.querySelectorAll('.navigation-circles').forEach( (circle) => {
+            if(answered_questions.includes(parseInt(circle.dataset.question_number))) {
+                circle.style.backgroundColor = '#91e462';
+                circle.style.color = '#17282f'
+            } 
+            circle.onclick = ()=> {
+                var question_number = circle.dataset.question_number;
+                // console.log(question_number);
+                load_question(question_number)
+            };
+        });
+
+        // Initially load a question
+        load_question(parseInt("{{question_number}}"));
+    });
+</script>

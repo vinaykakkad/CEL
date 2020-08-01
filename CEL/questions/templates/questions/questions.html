@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Questions</title>
+    <link rel="stylesheet" href="{% static 'questions/css/questions.css'%}">
+    <!-- This is a JS script file, but wanted to use jinja :)) -->
+    {% include 'questions/questions_script.html' %}
+{% endblock %}    
+
+{% block content %}
+
+    {% if not current_challenge in request.user.challenges_finished.all %}
+        <section id="question-body">
+            <div class="container-fluid m-0 p-0">
+                <div class="row mx-0 my-5 p-0">
+                    <div class="col-xl-3 my-4">
+                        <div class="navigation-box shadow pb-3">
+                            <div class="box-heading center-mx mb-3">
+                                Navigation
+                            </div>
+                            <table class="center-mx">
+                                <tr>
+                                    {% for i in questions %}
+                                        <td>
+                                            <div class="navigation-circles d-flex justify-content-center align-items-center mx-2 my-2" data-question_number="{{forloop.counter}}">
+                                                {{forloop.counter}}
+                                            </div>
+                                        </td>
+                                        {% if forloop.counter|divisibleby:"4" %}
+                                            </tr><tr>
+                                        {% endif %}
+                                    {% endfor %}        
+                                </tr>
+                            </table>
+                            <br>
+                            <a href="{% url 'submission'%}?challenge_number={{challenge_number}}">
+                                <button class="btn submit-button center-mx">Finish Attempt</button>
+                            </a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 my-4">
+                        <div class="question-box shadow pb-3">
+                            <div class="box-heading center-mx mb-3">
+                                Question
+                            </div>
+                            <div class="center-mx question-text my-3"></div>
+                            <div class=" center-mx question-image d-flex justify-content-center align-items-center my-3"></div>
+                            <hr class="question-hr">
+                            <div class="answer-box p-5">
+                                <form action="{% url 'answer' %}" method="post" enctype="multipart/form-data" id="question-form">
+                                    {% csrf_token %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <h1 class="text-white m-5 p-5 d-flex justify-content-center">You have already attempted the quiz</h1>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,240 @@
+/* ------------ Contents ------------
+
+    1. Section - headings
+    2. Navbar
+    3. Banner
+        a. image
+        b. heading
+        c. cards
+    4. Services
+    5. About
+    6. Portfolio
+        
+------------------------------------*/
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Roboto Slab", serif;
+}
+
+/* ------------ Section-headings ------------ */
+
+.heading-box {
+    text-align: center;
+    position: relative;
+    min-height: 100px;
+}
+
+.heading-large {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0000000e;
+}
+
+.heading-small {
+    position: absolute;
+    font-weight: 700;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #2a2a2a;
+}
+
+/* ------------ Navbar ------------ */
+
+.my-nav {
+    background-color: white;
+}
+
+.my-nav-logo {
+    font-size: xx-large;
+    font-weight: 600;
+    color: #666666;
+}
+
+.my-link {
+    color: #666666;
+    margin: 0px 16px 0px 16px;
+    padding: 8px 24px 8px 24px;
+    font-size: large;
+    text-align: center;
+}
+
+.my-link:hover, .my-link a:hover {
+    background-color: #666666;
+    color: white;
+    border-radius: 20px;
+    transition-duration: 1s;
+}
+
+/* ------------ Banner ------------ */
+
+#banner {
+    background-color: white;
+}
+
+.banner-img-box {
+    width: 100%;
+}
+
+.banner-img {
+    width: 100%;
+}
+
+.banner-heading {
+    color: #292929;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+@media screen and (min-width: 768px) {
+    .banner-img-box {
+        margin-left: 3vw;
+    }
+    .banner-heading-box {
+        margin-right: 3vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .banner-heading {
+        font-size: 36px;
+    }
+}
+
+.banner-subtitle {
+    color: #666666;
+    font-size: larger;
+}
+
+.banner-card {
+    width: 350px;
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+}
+
+.banner-card-icons {
+    color: #e63946;
+}
+
+.banner-card-title {
+    color: #3d3d3d;
+}
+
+.banner-card-text {
+    color: #666666;
+    font-weight: 100;
+}
+
+
+/* --------- Services ---------- */
+
+#services {
+    background-color: #8dd4d6;
+}
+
+.services-card {
+    width: 350px;
+    background-color: #a8dadc;
+    border-color: #a8dadc;
+}
+
+.services-card-text {
+    color: rgb(115, 115, 115);
+    text-align: center;
+}
+
+
+/* --------- About ---------- */
+
+.about-img-box {
+    width: 90%;
+}
+
+.about-img {
+    width: 100%;
+}
+
+.about-heading-box {
+    color: #3d3d3d;
+    font-size: 24px;
+}
+
+.about-text {
+    color: #666666;
+    font-size: 16px;
+}
+
+
+/* --------- Portfolio ---------- */
+
+#portfolio {
+    background-color: #fc929b;
+}
+
+.portfolio-img-box {
+    width: 90%;
+}
+
+.portfolio-img {
+    width: 100%;
+}
+
+
+/* --------- Testimonials ---------- */
+
+.testimonials-card {
+    position: relative;
+    padding-bottom: 100px;
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+    font-style: italic;
+    margin-bottom: 100px;
+}
+
+.testimonials-img {
+    position: absolute;
+    left: 30%;
+    top: 100%;
+    transform: translateY(-50%);
+    width: 30%;
+}
+
+/* --------- Team ---------- */
+
+#team {
+    background-color: #8dd4d6;
+}
+
+.team-card {
+    text-align: center;
+    font-style: italic;
+}
+
+.team-image {
+    width: 100%;
+}
+
+.team-name {
+    color: #292929;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.team-designation {
+    color: #3d3d3d;
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.team-description {
+    font-size: 14px;
+    font-weight: 200;
+}
+
