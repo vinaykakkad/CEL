@@ -4,6 +4,10 @@ body {
     background-attachment: fixed;
 }
 
+#challenge-body {
+    min-height: 70vh;
+}
+
 .challenge-box {
     /* background-color: #233b45; */
     background-color: whitesmoke;

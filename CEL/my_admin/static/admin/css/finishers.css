@@ -12,17 +12,38 @@ body {
     width: 300px;
 }
 
-
-#leaderboard-body {
-    min-height: 80vh;
+#finishers-body {
+    min-height: 70vh;
 }
 
-.leaderboard-table {
+.finisher-table {
     background-color: #1e333d;
     border: 2px solid white;
 }
 
-.leaderboard-table td {
+.finisher-table td {
     border: 1px solid white;
 }
 
+td a, td a:hover {
+    color: white;
+}
+
+.column-small {
+    width: 10%;
+}
+
+.column-large {
+    width: 80%;
+}
+.red {
+    background-color: #f14545;
+}
+
+.green {
+    background-color: #53f245;
+}
+
+.yellow {
+    background-color: #e9e954;
+}

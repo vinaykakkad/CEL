@@ -1,0 +1,66 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block head %}
+    <title>Finishers</title>
+    <link rel="stylesheet" href="{% static 'admin/css/answers.css' %}"> 
+{% endblock %} 
+
+{% block content %}
+    <section id="answers-body">
+        <div class="container">
+            <table class="table table-dark table-hover text-white mx-auto my-5 shadow answers-table">
+                <th>
+                    <td>Type</td>
+                    <td>Answer</td>
+                </th>
+                {% for answer in answers %}
+                <tr>
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+                    <td>
+                        {% if answer.answer_type == '1' or answer.answer_type == 'textarea' %} Subjective {% else %} File {% endif %}
+                    </td>
+                    <td>
+                        {% if answer.answer_textarea|length != 0 %}
+                        <button class="btn btn-white answer-buttons" data-toggle="modal" data-target="#answer-{{forloop.counter}}">Open</button>
+                        <div class="modal fade" id="answer-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-body" id="exampleModalLabel">Answer Text</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body text-body">
+                                        {{answer.answer_textarea}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+
+                        <a href="{{answer.answer_file.url}}" target="_blank" download="{{answer.answer_file.name}}">
+                            <button class="btn btn-white answer-buttons">
+                                    Download&nbsp;<i class="fas fa-download ml-auto"></i>
+                                </button>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="center-mx d-flex justify-content-center">
+                <a href="{% url 'add_to_50' %}?challenge_number={{challenge_number}}&username={{username}}">
+                    <button class="btn btn-success mx-3">Add to 50</button>
+                </a>
+                <a href="{% url 'disqualified' %}?challenge_number={{challenge_number}}&username={{username}}">
+                    <button class="btn btn-danger mx-3">Remove</button>
+                </a>
+            </div>
+        </div>
+    </section>
+{% include 'pagination.html' %} 
+{% endblock %}

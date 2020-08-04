@@ -82,3 +82,10 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return self.is_superuser
+
+    @property
+    def is_winner(self):
+        if(self.challenged_won.count() > 0):
+            return True
+        else: 
+            return False

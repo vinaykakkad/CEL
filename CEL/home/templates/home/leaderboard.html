@@ -7,25 +7,30 @@
 {% endblock %}
 
 {% block content %}
-        <h2 style="color: white; text-align: center; margin-top: 50px">LEADERBOARD</h2>
-        <table class="table center-mx">
-            <tr style="background-color: white">
-                <th> <b>Firstname</b> </th>
-                <th> <b>Points</b> </th>
-            </tr>
-            {% for user in users %}
-                {% if forloop.counter|divisibleby:"2" %}
-                    <tr class="row_odd">
-                        <td>{{user.username}}</td>
-                        <td>{{user.get_points}}</td>
-                    </tr>
-                {% else %}
-                    <tr class="row_even">
-                        <td>{{user.username}}</td>
-                        <td>{{user.get_points}}</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-        </table>
-
+    <section id="leaderboard-body">
+        <div class="container">
+            <h1 class="mx-auto heading mt-5 shadow">Leaderboard</h1>
+            <table class="table table-dark table-hover text-white mx-auto my-5 shadow leaderboard-table">
+                <th>
+                    <td>Username</td>
+                    <td>Challenges Won</td>
+                </th>
+                {% for winner in winners %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{winner.username}}</td>
+                    <td>
+                        {% for challenge in winner.challenges_won.all %}
+                            {% if forloop.counter is winner.challenges_won.count %}
+                                {{challenge.challenge_name}}
+                            {% else %}
+                                {{challenge.challenge_name}},
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>        
+    </section>
 {% endblock %}

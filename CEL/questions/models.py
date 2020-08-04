@@ -12,6 +12,8 @@ class Challenge(models.Model):
     challenge_name = models.IntegerField()
     challenge_winners = models.ManyToManyField(Account, related_name='challenges_won', blank=True)
     challenge_finishers = models.ManyToManyField(Account, related_name='challenges_finished', blank=True)
+    selected = models.ManyToManyField(Account, related_name='challenges_selected', blank=True)
+    disqualified = models.ManyToManyField(Account, related_name='challenges_disqualified', blank=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
 
@@ -25,7 +27,7 @@ class Challenge(models.Model):
         return datetime.now(tz=self.start_date.tzinfo)
 
     def is_challenge_active(self):
-        if self.get_current_datetime() > self.start_date and self.get_current_datetime < self.end_date:
+        if self.get_current_datetime() > self.start_date and self.get_current_datetime() < self.end_date:
             return True
         else:
             return False
@@ -61,3 +63,9 @@ class Answers(models.Model):
     def delete(self, *args, **kwargs):
         self.answer_file.delete()
         super().delete(*args, **kwargs)
+
+
+# class FinishedTime(models.Model):
+#     finished_time = models.DateTimeField()
+#     user = models.ForeignKey(Account)
+#     challenge = models.ForeignKey(Challenge)

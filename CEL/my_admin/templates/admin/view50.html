@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>The 50</title>
+    <link rel="stylesheet" href="{% static 'admin/css/view50.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="view50-body">
+        <div class="container">
+            <h1 class="mx-auto heading mt-5 shadow">The 50</h1>
+            <table class="table table-dark table-hover text-white mx-auto my-5 shadow view50-table">
+                <th>
+                    <td>Username</td>
+                    <td>Action</td>
+                </th>
+                {% for user in selected %}
+                <tr>
+                    <td class="column-small">
+                        {{ forloop.counter }}
+                    </td>
+                    <td class="column-large">
+                        {{ user.username }}
+                    </td>
+                    <td class="">
+                        <a href="{% url 'add_winner'%}?challenge_number={{challenge_number}}&username={{user.username}}">
+                            <button class="btn btn-white view50-buttons">Select</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+    {% include 'pagination.html' %}
+{% endblock %}

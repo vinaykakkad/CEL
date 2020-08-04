@@ -12,17 +12,27 @@ body {
     width: 300px;
 }
 
-
-#leaderboard-body {
-    min-height: 80vh;
+#view50-body {
+    min-height: 70vh;
 }
 
-.leaderboard-table {
+.view50-table {
     background-color: #1e333d;
     border: 2px solid white;
 }
 
-.leaderboard-table td {
+.view50-table td {
     border: 1px solid white;
 }
 
+.view50-buttons {
+    width: 150px;
+    border: 2px solid white;
+    background-color: white;
+    color: #17282f;
+}
+
+.view50-buttons:hover {
+    color: white;
+    background-color: transparent;
+}

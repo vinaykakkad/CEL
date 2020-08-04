@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Finishers</title>
+    <link rel="stylesheet" href="{% static 'admin/css/finishers.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="finishers-body">
+        <div class="container">
+            <h1 class="mx-auto heading mt-5 shadow">Finishers</h1>
+            <table class="table table-dark table-hover text-white mx-auto my-5 shadow finisher-table">
+                <th>
+                    <td>Username</td>
+                    <td>Status</td>
+                </th>
+                {% for finisher in page_data %}
+                <tr>
+                    <td class="column-small">
+                        {{ forloop.counter }}
+                    </td>
+                    <td class="column-large">
+                        <a href="{% url 'answers' %}?username={{finisher.username}}&challenge_number={{challenge_number}}">{{finisher.username}}</a>
+                    </td>
+                        {% if finisher in disqualified %} 
+                            <td class="p-0 red"> &emsp;
+                        {% elif finisher in selected %}
+                            <td class="p-0 green"> &emsp;
+                        {% else %}                  
+                            <td class="p-0 yellow"> &emsp;     
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+    {% include 'pagination.html' %}
+{% endblock %}
