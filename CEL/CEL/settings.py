@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
+    'ckeditor_uploader',
 
     # custom apps
     'home',
@@ -118,6 +120,7 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
@@ -125,3 +128,45 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        # 'toolbar_Full': [
+        #     {
+        #         'name': 'basicstyles',
+        #         'groups': ['basicstyles', 'cleanup'],
+        #         'items': ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat']
+        #     },
+        #     {
+        #         'name': 'paragraph',
+        #         'groups': ['list', 'indent', 'blocks'],
+        #         'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']
+        #     },
+        #     {
+        #         'name': 'links',
+        #         'items': ['Link', 'Unlink']
+        #     },
+        #     {
+        #         'name': 'insert',
+        #         'items': ['Image', 'HorizontalRule', 'Table', 'Iframe', ]
+        #     },
+        #     {
+        #         'name': 'colors',
+        #         'items': ['TextColor', 'BGColor']
+        #     },
+        #     {
+        #         'name': 'youtube',
+        #         'items': ['Youtube',]
+        #     }
+        # ],
+        'height': 400,
+        'width': '100%',
+        'allowedContent': True,
+        'uiColor': '#f0f0f0',
+        'extraPlugins': 'link,iframe,colorbutton,autogrow,youtube',
+        'autoGrow_maxHeight': 800,
+        'autoGrow_minHeight': 400,
+        'removePlugins': 'resize',
+        'removeButtons': None,
+    },
+}

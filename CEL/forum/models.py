@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 STATUS = (
     (0,"Draft"),
@@ -7,7 +8,9 @@ STATUS = (
 class Post(models.Model):
 
     title = models.CharField(max_length=256, blank=False)
-    text = models.TextField(blank=False)
+    # text = models.TextField(blank=False)
+    # text = RichTextField(blank=False, extra_plugins=['codesnippet','youtube',], external_plugin_resources=[('youtube','/static/ckeditor/ckeditor/plugins/youtube/','plugin.js')],)
+    text = RichTextField(blank = False)
     created_on = models.DateTimeField(auto_now_add=True)
     video = models.FileField(null=True, blank = True, upload_to='videos')
     image = models.FileField(null=True, blank = True, upload_to='images')
