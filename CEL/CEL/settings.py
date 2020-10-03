@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 
     # custom apps
     'home',
+    'forum',
     'account',
     'my_admin',
     'questions',

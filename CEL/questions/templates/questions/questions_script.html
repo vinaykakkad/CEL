@@ -90,12 +90,18 @@
             addInput('submit', null, 'Submit', 'btn submit-button center-mx');
 
             //Push state to history
-            history.pushState({question_number: question_number}, "Question 1", "?challenge_number={{challenge_number}}&question_number=" + question_number);
+            history.pushState({question_number: question_number}, "Question"+question_number, "?challenge_number={{challenge_number}}&question_number=" + question_number);
+            console.log(history);
+            console.log(question_number);
         };
 
         // On popstate load the previous page
         window.onpopstate = (e) => {
+            
+            console.log(e.state['question_number']);
+            console.log(history);
             load_question(e.state['question_number']);
+
         }
 
         // For navigatoin panel

@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block head %}
+	<title>Forum</title>
+	<link rel="stylesheet" href="{% static 'forum/css/forum.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section id="forum-body">
+        <div class="container py-5 main">
+            <div class="row mt-md-5 mx-auto">
+                {% for post in page_data %}
+                    <div class="container card mb-4 shadow">
+                        <div class="card-body">
+                            <h2 class="card-title text-success">{{ post.title }}</h2>
+                            <p class="card-text text-muted h6">{{ post.created_on}} </p>
+                            <p class="card-text">{{post.text|slice:":200" }}</p>
+                            <a href="{% url 'post_detail' post.slug  %}" class="btn forum-button">Read More &rarr;</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% include 'pagination.html' %}
+{%endblock%}
