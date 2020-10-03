@@ -129,9 +129,17 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_PORT = config('EMAIL_PORT')
 
 CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Full',
-        # 'toolbar_Full': [
+    'default': 
+        {'toolbar': 'full',
+         'extraPlugins':','.join(
+             [
+                #  'codesnippet'
+                 'youtube'
+             ]
+         )
+            # [
+            #     ['CodeSnippet']
+            # ], 'extraPlugins':'codesnippet',
         #     {
         #         'name': 'basicstyles',
         #         'groups': ['basicstyles', 'cleanup'],
@@ -159,14 +167,15 @@ CKEDITOR_CONFIGS = {
         #         'items': ['Youtube',]
         #     }
         # ],
-        'height': 400,
-        'width': '100%',
-        'allowedContent': True,
-        'uiColor': '#f0f0f0',
-        'extraPlugins': 'link,iframe,colorbutton,autogrow,youtube',
-        'autoGrow_maxHeight': 800,
-        'autoGrow_minHeight': 400,
-        'removePlugins': 'resize',
-        'removeButtons': None,
+        # 'height': 400,
+        # 'width': '100%',
+        # 'allowedContent': True,
+        # 'uiColor': '#f0f0f0',
+        # 'extraPlugins': 'link,iframe,colorbutton,autogrow,youtube',
+        # "extraPlugins":'codesnippet',
+        # 'autoGrow_maxHeight': 800,
+        # 'autoGrow_minHeight': 400,
+        # 'removePlugins': 'resize',
+        # 'removeButtons': None,
     },
 }
