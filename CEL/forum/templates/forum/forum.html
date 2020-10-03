@@ -1,27 +1,72 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load static %}
 
 {% block head %}
-	<title>Forum</title>
-	<link rel="stylesheet" href="{% static 'forum/css/forum.css' %}">
+<title>Forum</title>
+<link rel="stylesheet" href="{% static 'forum/css/forum.css' %}">
 {% endblock %}
 
 {% block content %}
-    <section id="forum-body">
-        <div class="container py-5 main">
-            <div class="row mt-md-5 mx-auto">
-                {% for post in page_data %}
-                    <div class="container card mb-4 shadow">
-                        <div class="card-body">
-                            <h2 class="card-title text-success">{{ post.title }}</h2>
-                            <p class="card-text text-muted h6">{{ post.created_on}} </p>
-                            <p class="card-text">{{post.text|slice:":200"|safe }}</p>
-                            <a href="{% url 'post_detail' post.slug  %}" class="btn forum-button">Read More &rarr;</a>
-                        </div>
+<section id="forum-body">
+    <div class="container pb-5 main">
+        <div class="row mt-md-5 mx-auto">
+            <div class="col-lg-3 mb-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-success text-center mx-auto"><u>Filter</u></h2>
+                        <form action="{% url 'forum' %}" method="GET"
+                            class="form-group">
+                            <label for="title">By title:</label>
+                            <input type="text" name="title"
+                                class="form-control">
+                            <label for="tags">By tags:</label>
+                            <select name="tags"
+                                class="custom-select form-control" multiple>
+                                {% for tag in tags %}
+                                <option value="{{tag}}">{{tag}}</option>
+                                {% endfor %}
+                            </select>
+                            <br><br>
+                            <small>Hold down “Control”, or “Command” on a Mac,
+                                to select
+                                more than one.
+                            </small>
+                            <button class="btn btn-md mx-3 forum-button"
+                                type="submit">Filter</button>
+                            {% if filtered %}
+                            <a href="{% url 'forum' %}?clear=1">
+                                <button type="button"
+                                    class="btn btn-md mx-3 forum-button">Clear</button>
+                            </a>
+                            {% endif %}
                     </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                {% for post in page_data %}
+                <div class="container card mb-4 shadow">
+                    <div class="card-body">
+                        <h2 class="card-title text-success">{{ post.title }}
+                        </h2>
+                        <p class="card-text text-muted h6">{{ post.created_on}}
+                        </p>
+                        <p class="card-text">{{post.text|slice:":200" }}</p>
+                        <p>
+                            Tags:
+                            {% for tag in post.tags.all %}
+                                <a href="{% url 'forum' %}?tags={{tag}}">{{tag}}</a>
+                                {% if forloop.counter != post.tags.all|length %},&emsp14; {% endif %}
+                            {% endfor %}
+                        </p>
+                        <a href="{% url 'post_detail' post.slug  %}"
+                            class="btn forum-button">Read More &rarr;</a>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
-    </section>
-    {% include 'pagination.html' %}
+    </div>
+</section>
+{% include 'pagination.html' %}
 {%endblock%}

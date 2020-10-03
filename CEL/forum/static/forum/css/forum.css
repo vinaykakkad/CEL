@@ -6,6 +6,7 @@
   background-color: #91e460;
   border: 2px solid black;
   border-radius: 20px;
+  float: right;
 }
 
 .forum-button:hover {
@@ -19,4 +20,13 @@
 
 .media-box {
   width: 90%;
+}
+
+.tag {
+  background-color: #e2e2e2;
+  border-radius: 15px;
+}
+
+.tag a, .tag a:hover{
+  color: black;
 }
