@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <h2 class="card-title text-success">{{ post.title }}</h2>
                             <p class="card-text text-muted h6">{{ post.created_on}} </p>
-                            <p class="card-text">{{post.text|slice:":200" }}</p>
+                            <p class="card-text">{{post.text|slice:":200"|safe }}</p>
                             <a href="{% url 'post_detail' post.slug  %}" class="btn forum-button">Read More &rarr;</a>
                         </div>
                     </div>
